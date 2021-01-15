@@ -1,7 +1,15 @@
 <template>
   <div id="app">
-    <div class="unit" v-for="unit in manifest" :key="unit.item">
-      <app-child :item="unit.item" :url="unit.url"></app-child>
+    <h1>Your Upcoming Destinations</h1>
+    <div class="location-contain">
+      <div class="locations" v-for="location in locations" :key="location.name">
+        <place :location="location">
+          <h2>{{ location.name }}</h2>
+        </place>
+        <img :src="location.img" width="235" height="300" />
+        <slot></slot>
+        <p>{{ location.desc }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -10,25 +18,32 @@
 import AppChild from "@/components/AppChild.vue";
 
 export default {
-  components: {
+  Components: {
     AppChild,
   },
   data() {
     return {
-      manifest: [
+      locations: [
         {
-          item: "backpack",
-          url:
-            "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/backpack.jpg",
+          name: "moscow",
+          img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/moscow.svg",
+          desc:
+            "Moscow is the capital and most populous city of Russia, with 13.2 million residents within the city limits and 17.8 million within the urban area. Moscow has the status of a Russian federal city.",
         },
         {
-          item: "tshirt",
-          url: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/tshirt.jpg",
+          name: "paris",
+          img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/paris1.svg",
+          desc: `Paris is the capital and most populous city of France. By the 17th century, Paris was one of Europe's major centres of finance, commerce, fashion, science, and the arts, and it retains that position still today.`,
         },
         {
-          item: "sweatshirt",
-          url:
-            "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/sweatshirt.jpg",
+          name: "rome",
+          img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/rome.svg",
+          desc: `Rome's history spans more than 2,500 years. While Roman mythology dates the founding of Rome at around 753 BC, the site has been inhabited for much longer, making it one of the oldest continuously occupied sites in Europe.`,
+        },
+        {
+          name: "paris",
+          img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/paris2.svg",
+          desc: `By the end of the 12th century, Paris had become the political, economic, religious, and cultural capital of France. Maurice de Sully undertook the construction of the Notre Dame Cathedral at its eastern extremity.`,
         },
       ],
     };
@@ -37,99 +52,19 @@ export default {
 </script>
 
 <style lang="scss">
-body,
-html {
-  font-family: "PT Serif", serif;
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "NTR", sans-serif;
+  background: #eee;
 }
 
-#app {
+h1 {
+  text-align: center;
+}
+
+.location-contain {
   display: flex;
   justify-content: center;
-}
-
-.special {
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
-}
-
-h1,
-h2,
-h3,
-li {
-  @extend .special;
-}
-
-h2 {
-  font-size: 20px;
-  margin: 0 0 5px;
-  text-align: center;
-}
-
-li {
-  list-style: none;
-  display: inline-block;
-}
-
-input {
-  background: #eee;
-}
-
-button {
-  border: none;
-  border-radius: 1000px;
-  padding: 8px 13px;
-  outline: none;
-  cursor: pointer;
-  &.inc {
-    background: white;
-    color: black;
-  }
-  &.submit {
-    background: black;
-    color: white;
-    @extend .special;
-    margin-left: 20px;
-    padding: 12px 14px;
-    width: 240px;
-    transition: 0.25s all ease-in;
-    &:hover {
-      opacity: 0.8;
-      transition: 0.25s all ease-out;
-    }
-  }
-}
-
-.quant-text {
-  display: inline-block;
-  text-align: center;
-  width: 140px;
-  padding: 8px;
-  padding: 8px;
-  @extend .special;
-}
-
-.quantity {
-  border: 2px solid black;
-  width: 235px;
-  padding-left: 3px;
-  border-radius: 1000px;
-  background: #fff;
-  margin-left: 20px;
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  height: 440px;
-  justify-content: space-around;
-  background: #eee;
-  padding: 20px 10px;
-  margin: 30px;
-  img {
-    align-self: center;
-  }
 }
 </style>
